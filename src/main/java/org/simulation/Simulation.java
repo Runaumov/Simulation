@@ -1,6 +1,12 @@
 package org.simulation;
 
-import java.util.Random;
+import org.simulation.entity.Creature;
+import org.simulation.entity.Entity;
+import org.simulation.entity.Grass;
+import org.simulation.field.Field;
+import org.simulation.field.FieldConsoleRender;
+
+import java.util.Map;
 
 public class Simulation {
     private final Field field;
@@ -12,9 +18,15 @@ public class Simulation {
     }
 
     public void simulationLoop() {
-        Action.initAction(field);
+        Action.testInitAction(field);
         fieldConsoleRender.render(field);
 
+        for (int i = 0; i < field.getY(); i++) {
+            Action.turnAction(field);
+            fieldConsoleRender.render(field);
+        }
+
     }
+
 
 }

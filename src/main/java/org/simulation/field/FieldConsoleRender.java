@@ -1,4 +1,7 @@
-package org.simulation;
+package org.simulation.field;
+
+import org.simulation.Coordinates;
+import org.simulation.entity.Entity;
 
 public class FieldConsoleRender {
     public void render(Field field) {
@@ -14,6 +17,7 @@ public class FieldConsoleRender {
             }
             System.out.println(line);
         }
+        System.out.println("");
     }
 
     private String getEntitySprite(Entity entity) {

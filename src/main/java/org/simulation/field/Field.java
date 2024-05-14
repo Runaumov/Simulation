@@ -1,4 +1,7 @@
-package org.simulation;
+package org.simulation.field;
+
+import org.simulation.Coordinates;
+import org.simulation.entity.Entity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,11 +31,11 @@ public class Field {
     }
 
     public void addEntityForRandomCoordinates (Random random, Entity entity) {
-        Coordinates coordinate;
+        Coordinates coordinates;
         do {
-            coordinate = new Coordinates(random.nextInt(x) + 1, random.nextInt(y) + 1);
-        } while (!isCellEmpty(coordinate));
-        entities.put(coordinate, entity);
+            coordinates = new Coordinates(random.nextInt(x) + 1, random.nextInt(y) + 1);
+        } while (!isCellEmpty(coordinates));
+        entities.put(coordinates, entity);
     }
 
     public Coordinates getEntityCoordinate (Entity entity) {

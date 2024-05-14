@@ -1,6 +1,11 @@
 package org.simulation;
 
+import org.simulation.entity.Entity;
+import org.simulation.field.Field;
+
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Coordinates {
     public final Integer X;
@@ -17,6 +22,12 @@ public class Coordinates {
 
     public Integer getY() {
         return Y;
+    }
+
+    //method for test
+    public static Coordinates getTargetCoordinates(Field field, Entity entity) {
+        Coordinates targetCoordinates = new Coordinates(field.getEntityCoordinate(entity).getX(), field.getEntityCoordinate(entity).getY() + 1);
+        return targetCoordinates;
     }
 
     @Override

@@ -1,4 +1,6 @@
-package org.simulation;
+package org.simulation.entity;
+
+import org.simulation.Coordinates;
 
 import java.util.Objects;
 
