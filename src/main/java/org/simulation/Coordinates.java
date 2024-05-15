@@ -42,4 +42,12 @@ public class Coordinates {
     public int hashCode() {
         return Objects.hash(X, Y);
     }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "X=" + X +
+                ", Y=" + Y +
+                '}';
+    }
 }

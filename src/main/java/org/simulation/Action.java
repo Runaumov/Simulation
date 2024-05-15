@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class Action {
 
     public static void testInitAction(Field field) {
-        field.addEntity(new Coordinates(1, 1), new Rabbit());
-        field.addEntity(new Coordinates(1, 4), new Grass());
+        field.addEntity(new Coordinates(1, 0), new Rabbit());
+        field.addEntity(new Coordinates(3, 3), new Grass());
         field.addEntity(new Coordinates(3, 2), new Stone());
         field.addEntity(new Coordinates(2, 3), new Tree());
     }
@@ -43,6 +43,7 @@ public class Action {
     }
 
     public static void turnAction(Field field) {
+        FieldEntityRouter router = new FieldEntityRouter(field);
         //получаем мапу сущностей, которые могут двигаться
         Map<Coordinates, Creature> entitiesForTurn = field.getEntities().entrySet().stream()
                 .filter(entry -> entry.getValue() instanceof Creature)
@@ -50,7 +51,9 @@ public class Action {
         //перебираем этих существ и к каждому применяем метод move
         for (Map.Entry<Coordinates, Creature> entry : entitiesForTurn.entrySet()) {
             Creature creature = entry.getValue();
-            creature.makeMove(field, entry.getKey(), Coordinates.getTargetCoordinates(field, creature));
+            Coordinates currentCoordinates = entry.getKey();
+            Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
+            creature.makeMove(field, currentCoordinates, targetCoordinates);
         }
         try {
             Thread.sleep(1000);

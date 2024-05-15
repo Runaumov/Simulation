@@ -21,7 +21,7 @@ public class Simulation {
         Action.testInitAction(field);
         fieldConsoleRender.render(field);
 
-        for (int i = 0; i < field.getY(); i++) {
+        for (int i = 0; i < field.getY() + 3; i++) {
             Action.turnAction(field);
             fieldConsoleRender.render(field);
         }
