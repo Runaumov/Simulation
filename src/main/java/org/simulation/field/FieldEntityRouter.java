@@ -23,20 +23,19 @@ public class FieldEntityRouter {
             Coordinates currentCoordinates = queue.poll();
 
             if (isTarget(creature, currentCoordinates)) {
-                System.out.println("Target found at: " + currentCoordinates);
                 return reconstructPath(previous, startCoordinates, currentCoordinates);
             }
 
             for (Coordinates neighbor : getNeighborCoordinates(currentCoordinates)) {
                 if (isCoordinatesValid(neighbor) && !visited.contains(neighbor) &&
-                        field.getEntity(neighbor) == null || isTarget(creature, neighbor)) {
+                    field.getEntity(neighbor) == null || isTarget(creature, neighbor)
+                ){
                     queue.add(neighbor);
                     visited.add(neighbor);
                     previous.put(neighbor, currentCoordinates);
                 }
             }
         }
-        System.out.println("No path found from: " + startCoordinates);
         return startCoordinates;
     }
 
@@ -62,33 +61,20 @@ public class FieldEntityRouter {
     private Coordinates reconstructPath(Map<Coordinates, Coordinates> previous, Coordinates startCoordinates, Coordinates targetCoordinates) {
         LinkedList<Coordinates> path = new LinkedList<>();
         Coordinates step = targetCoordinates;
-        while (step != null && !step.equals(startCoordinates)) { // Исправлено условие
+        while (step != null && !step.equals(startCoordinates)) {
             path.addFirst(step);
             step = previous.get(step);
         }
         if (path.isEmpty()) {
-            return startCoordinates; // Исправлено условие
+            return startCoordinates;
         } else {
-            return path.getFirst(); // Возвращаем следующий шаг от стартовой позиции
+            return path.getFirst();
         }
     }
 
     private boolean isCoordinatesValid(Coordinates coordinates) {
-        return coordinates.getX() >= 0 && coordinates.getX() <= field.getX() &&
-                coordinates.getY() >= 0 && coordinates.getY() <= field.getY();
-    }
-
-    public static void main(String[] args) {
-        Field fieldTest = new Field(2, 2);
-        Coordinates coordinatesRabbit = new Coordinates(1, 1);
-        Coordinates coordinatesGrass = new Coordinates(1, 2);
-        Creature rabbit = new Rabbit();
-        Entity grass = new Grass();
-        fieldTest.addEntity(coordinatesRabbit, rabbit);
-        fieldTest.addEntity(coordinatesGrass, grass);
-        FieldEntityRouter router = new FieldEntityRouter(fieldTest);
-        System.out.println(router.getTargetCoordinates(rabbit, coordinatesRabbit));
-
+        return coordinates.getX() > 0 && coordinates.getX() <= field.getX() &&
+                coordinates.getY() > 0 && coordinates.getY() <= field.getY();
     }
 
 }

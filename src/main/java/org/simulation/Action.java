@@ -3,43 +3,22 @@ package org.simulation;
 import org.simulation.entity.*;
 import org.simulation.field.Field;
 import org.simulation.field.FieldEntityRouter;
-
-import java.util.HashMap;
+import org.simulation.field.FieldUtils;
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Action {
-
-    public static void testInitAction(Field field) {
+    public void testInitAction(Field field) {
         field.addEntity(new Coordinates(1, 0), new Rabbit());
         field.addEntity(new Coordinates(3, 3), new Grass());
         field.addEntity(new Coordinates(3, 2), new Stone());
         field.addEntity(new Coordinates(2, 3), new Tree());
     }
     public static void initAction(Field field) {
-        Random random = new Random();
-        int totalCells = field.getX() * field.getY();
-        int rabbitCount = totalCells / 10;
-        int foxCount = totalCells / 20;
-        int grassCount = totalCells / 4;
-        int treeAndStoneCount = totalCells / 10;
-        for (int i = 0; i < rabbitCount; i++) {
-            field.addEntityForRandomCoordinates(random, new Rabbit());
-        }
-        for (int i = 0; i < foxCount; i++) {
-            field.addEntityForRandomCoordinates(random, new Fox());
-        }
-        for (int i = 0; i < grassCount; i++) {
-            field.addEntityForRandomCoordinates(random, new Grass());
-        }
-        for (int i = 0; i < treeAndStoneCount; i++) {
-            if (random.nextBoolean()) {
-                field.addEntityForRandomCoordinates(random, new Tree());
-            } else {
-                field.addEntityForRandomCoordinates(random, new Stone());
-            }
-        }
+        FieldUtils.addRabbitForRandomCoordinate(field);
+        FieldUtils.addFoxForRandomCoordinate(field);
+        FieldUtils.addGrassForRandomCoordinate(field);
+        FieldUtils.addStoneAndTreeForRandomCoordinate(field);
     }
 
     public static void turnAction(Field field) {
@@ -55,12 +34,7 @@ public class Action {
             Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
             creature.makeMove(field, currentCoordinates, targetCoordinates);
         }
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //изменения производим в переданном в сигнатуру field
+
     }
 
 }
