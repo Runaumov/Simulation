@@ -12,24 +12,27 @@ import java.util.Map;
 
 public class Simulation {
     private final Field field;
-
+    private final Runnable repaintCallback;
     private FieldConsoleRender fieldConsoleRender = new FieldConsoleRender();
 
-    public Simulation(Field field) {
+    public Simulation(Field field, Runnable repaintCallback) {
         this.field = field;
+        this.repaintCallback = repaintCallback;
     }
 
     public void simulationLoop() {
         Action simulationAction = new Action(field);
         simulationAction.initAction();
-        fieldConsoleRender.render(field);
+        //fieldConsoleRender.render(field);
+        repaintCallback.run();
 
         while (!isSimulationEnd()) {
             simulationAction.turnAction();
+            repaintCallback.run();
             if (!field.hasGrass()) {
                 FieldUtils.addGrassForRandomCoordinate(field);
             }
-            fieldConsoleRender.render(field);
+            //fieldConsoleRender.render(field);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

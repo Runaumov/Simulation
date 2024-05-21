@@ -10,7 +10,7 @@ public class FieldConsoleRender {
             for (int x = 1; x <= field.getX(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
                 if (field.isCellEmpty(coordinates)) {
-                    line += "\u202F "+"\u2022"+"\u202F";
+                    line += "  " + "\u2022" + "  ";
                 } else {
                     line += getEntitySprite(field.getEntity(coordinates));
                 }
@@ -23,17 +23,17 @@ public class FieldConsoleRender {
     private String getEntitySprite(Entity entity) {
         switch (entity.getClass().getSimpleName()) {
             case "Rabbit":
-                return "\u202F" + "\u202F" + "\uD83D\uDC30";
+                return " " + "\uD83D\uDC30" + " ";
             case "Fox":
-                return "\u202F" + "\u202F" + "\uD83E\uDD8A" + "\u202F";
+                return " " + "\uD83E\uDD8A" + " ";
             case "Grass" :
-                return "\u202F" + "\uD83C\uDF3F";
+                return " " + "\uD83C\uDF3F" + " ";
             case "Tree" :
-                return "\u202F" + "\u202F" + "\uD83C\uDF32";
+                return " " + "\uD83C\uDF32" + " ";
             case "Stone" :
-                return "\u202F" + "\u202F" + "\uD83D\uDDFF" + "\u202F";
+                return " " + "\uD83D\uDDFF" + " ";
             case "Scull" :
-                return "\u202F" + "\uD83D\uDC80";
+                return " " + "\uD83D\uDC80" + " ";
         }
         return "";
     }

@@ -6,10 +6,11 @@ import org.simulation.field.FieldEntityRouter;
 import org.simulation.field.FieldUtils;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Action {
     private final Field field;
-    private static Queue<Coordinates> entitiesForTurn = new LinkedList<>();
+    private static Queue<Coordinates> entitiesForTurn = new ConcurrentLinkedQueue<>();
 
     public Action(Field field) {
         this.field = field;
@@ -35,7 +36,6 @@ public class Action {
                 creature.setHp(Creature.MAX_HP);
             }
             creature.makeMove(field, currentCoordinates, targetCoordinates);
-            System.out.println("Ходит " + creature.toString());
         }
 
     }
