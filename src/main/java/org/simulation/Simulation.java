@@ -6,6 +6,7 @@ import org.simulation.entity.Grass;
 import org.simulation.entity.Herbivore;
 import org.simulation.field.Field;
 import org.simulation.field.FieldConsoleRender;
+import org.simulation.field.FieldUtils;
 
 import java.util.Map;
 
@@ -19,11 +20,15 @@ public class Simulation {
     }
 
     public void simulationLoop() {
-        Action.initAction(field);
+        Action simulationAction = new Action(field);
+        simulationAction.initAction();
         fieldConsoleRender.render(field);
 
         while (!isSimulationEnd()) {
-            Action.turnAction(field);
+            simulationAction.turnAction();
+            if (!field.hasGrass()) {
+                FieldUtils.addGrassForRandomCoordinate(field);
+            }
             fieldConsoleRender.render(field);
             try {
                 Thread.sleep(1000);
@@ -31,7 +36,6 @@ public class Simulation {
                 e.printStackTrace();
             }
         }
-
     }
 
     private boolean isSimulationEnd() {

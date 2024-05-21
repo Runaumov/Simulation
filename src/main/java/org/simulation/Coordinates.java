@@ -23,13 +23,6 @@ public class Coordinates {
     public Integer getY() {
         return Y;
     }
-
-    //method for test
-    public static Coordinates getTargetCoordinates(Field field, Entity entity) {
-        Coordinates targetCoordinates = new Coordinates(field.getEntityCoordinate(entity).getX(), field.getEntityCoordinate(entity).getY() + 1);
-        return targetCoordinates;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

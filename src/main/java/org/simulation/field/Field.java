@@ -2,6 +2,7 @@ package org.simulation.field;
 
 import org.simulation.Coordinates;
 import org.simulation.entity.Entity;
+import org.simulation.entity.Grass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,14 +39,13 @@ public class Field {
         entities.put(coordinates, entity);
     }
 
-    public Coordinates getEntityCoordinate (Entity entity) {
-        Coordinates coordinates = null;
+    public boolean hasGrass () {
         for (Map.Entry<Coordinates, Entity> entry : entities.entrySet()) {
-            if (entity == entry.getValue()) {
-                coordinates = entry.getKey();
+            if (entry.getValue() instanceof Grass) {
+                return true;
             }
         }
-        return coordinates;
+        return false;
     }
 
     public void addEntity(Coordinates coordinates, Entity entity) {

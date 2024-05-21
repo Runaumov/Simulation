@@ -32,6 +32,8 @@ public class FieldConsoleRender {
                 return "\u202F" + "\u202F" + "\uD83C\uDF32";
             case "Stone" :
                 return "\u202F" + "\u202F" + "\uD83D\uDDFF" + "\u202F";
+            case "Scull" :
+                return "\u202F" + "\uD83D\uDC80";
         }
         return "";
     }

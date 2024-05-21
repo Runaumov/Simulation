@@ -42,7 +42,7 @@ public class FieldEntityRouter {
     private boolean isTarget(Creature creature, Coordinates coordinates) {
         Entity entity = field.getEntity(coordinates);
         if (creature instanceof Herbivore && entity instanceof Grass) {
-            return  true;
+            return true;
         } else if (creature instanceof Predator && entity instanceof Herbivore) {
             return true;
         }

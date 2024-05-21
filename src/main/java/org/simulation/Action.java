@@ -4,37 +4,50 @@ import org.simulation.entity.*;
 import org.simulation.field.Field;
 import org.simulation.field.FieldEntityRouter;
 import org.simulation.field.FieldUtils;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Action {
-    public void testInitAction(Field field) {
-        field.addEntity(new Coordinates(1, 0), new Rabbit());
-        field.addEntity(new Coordinates(3, 3), new Grass());
-        field.addEntity(new Coordinates(3, 2), new Stone());
-        field.addEntity(new Coordinates(2, 3), new Tree());
+    private final Field field;
+    private static Queue<Coordinates> entitiesForTurn = new LinkedList<>();
+
+    public Action(Field field) {
+        this.field = field;
     }
-    public static void initAction(Field field) {
+
+    public void initAction() {
         FieldUtils.addRabbitForRandomCoordinate(field);
         FieldUtils.addFoxForRandomCoordinate(field);
         FieldUtils.addGrassForRandomCoordinate(field);
         FieldUtils.addStoneAndTreeForRandomCoordinate(field);
     }
 
-    public static void turnAction(Field field) {
-        FieldEntityRouter router = new FieldEntityRouter(field);
-        //получаем мапу сущностей, которые могут двигаться
-        Map<Coordinates, Creature> entitiesForTurn = field.getEntities().entrySet().stream()
-                .filter(entry -> entry.getValue() instanceof Creature)
-                .collect(Collectors.toMap(Map.Entry::getKey,  entry -> (Creature) entry.getValue()));
-        //перебираем этих существ и к каждому применяем метод move
-        for (Map.Entry<Coordinates, Creature> entry : entitiesForTurn.entrySet()) {
-            Creature creature = entry.getValue();
-            Coordinates currentCoordinates = entry.getKey();
+    public void turnAction() {
+        Coordinates currentCoordinates = getCreatureCoordinatesForTurn(field);
+        Creature creature = (Creature) field.getEntity(currentCoordinates);
+        creature.setHp(creature.getHp() - 1);
+        if (creature.getHp() == 0) {
+            field.addEntity(currentCoordinates, new Scull());
+        } else {
+            FieldEntityRouter router = new FieldEntityRouter(field);
             Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
+            if (!field.isCellEmpty(targetCoordinates)) {
+                creature.setHp(Creature.MAX_HP);
+            }
             creature.makeMove(field, currentCoordinates, targetCoordinates);
+            System.out.println("Ходит " + creature.toString());
         }
 
+    }
+
+    public static Coordinates getCreatureCoordinatesForTurn(Field field) {
+        if (entitiesForTurn.isEmpty()) {
+            entitiesForTurn = field.getEntities().entrySet().stream()
+                    .filter(entry -> entry.getValue() instanceof Creature)
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        }
+        return entitiesForTurn.poll();
     }
 
 }

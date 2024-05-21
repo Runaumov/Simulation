@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class FieldUtils {
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public static void addRabbitForRandomCoordinate (Field field) {
         int rabbitCount = field.getX() * field.getY() / 10;
@@ -24,7 +24,7 @@ public class FieldUtils {
     }
 
     public static void addFoxForRandomCoordinate (Field field) {
-        int foxCount = field.getX() * field.getY() / 33;
+        int foxCount = field.getX() * field.getY() / 50;
         for (int i = 0; i < foxCount; i++) {
             field.addEntityForRandomCoordinates(random, new Fox());
         }
