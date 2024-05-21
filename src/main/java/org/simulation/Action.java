@@ -27,7 +27,7 @@ public class Action {
         Creature creature = (Creature) field.getEntity(currentCoordinates);
         creature.setHp(creature.getHp() - 1);
         if (creature.getHp() == 0) {
-            field.addEntity(currentCoordinates, new Scull());
+            field.addEntity(currentCoordinates, new Skull());
         } else {
             FieldEntityRouter router = new FieldEntityRouter(field);
             Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
