@@ -4,8 +4,8 @@ public class Fox extends Predator {
 
     @Override
     public String toString() {
-        return "Fox{" +
+        return "Fox (" +
                 "hp=" + hp +
-                '}';
+                ')';
     }
 }

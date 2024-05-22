@@ -1,6 +1,7 @@
 package org.simulation.field;
 
 import org.simulation.Coordinates;
+import org.simulation.MessageBox;
 import org.simulation.entity.Entity;
 
 public class FieldConsoleRender {
@@ -10,30 +11,33 @@ public class FieldConsoleRender {
             for (int x = 1; x <= field.getX(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
                 if (field.isCellEmpty(coordinates)) {
-                    line += "\u202F "+"\u2022"+"\u202F";
+                    line += "\u2002"+"\u2022"+"\u2002";
                 } else {
                     line += getEntitySprite(field.getEntity(coordinates));
                 }
             }
             System.out.println(line);
         }
-        System.out.println("");
+        MessageBox.getMessage();
+        System.out.println("----------");
     }
 
     private String getEntitySprite(Entity entity) {
         switch (entity.getClass().getSimpleName()) {
             case "Rabbit":
-                return "\u202F" + "\u202F" + "\uD83D\uDC30";
+                return "\u2004" + "\uD83D\uDC30";
             case "Fox":
-                return "\u202F" + "\u202F" + "\uD83E\uDD8A" + "\u202F";
+                return "\u2004" + "\uD83E\uDD8A";
             case "Grass" :
-                return "\u202F" + "\uD83C\uDF3F";
+                return "\u2004" + "\uD83C\uDF3F";
             case "Tree" :
-                return "\u202F" + "\u202F" + "\uD83C\uDF32";
+                return "\u2004" + "\uD83C\uDF32" + "\u2006";
             case "Stone" :
-                return "\u202F" + "\u202F" + "\uD83D\uDDFF" + "\u202F";
-            case "Scull" :
-                return "\u202F" + "\uD83D\uDC80";
+                return "\u2004" + "\uD83D\uDDFF" + "\u2005" + "\u200A";
+            case "Skull" :
+                return "\u2004" + "\uD83D\uDC80";
+            case "Cow" :
+                return "\u2004" + "\uD83D\uDC2E";
         }
         return "";
     }

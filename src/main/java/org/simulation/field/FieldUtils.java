@@ -30,7 +30,6 @@ public class FieldUtils {
         }
     }
 
-
     public static void addStoneAndTreeForRandomCoordinate (Field field) {
         int treeAndStoneCount = field.getX() * field.getY() / 10;
         for (int i = 0; i < treeAndStoneCount; i++) {
@@ -39,6 +38,13 @@ public class FieldUtils {
             } else {
                 field.addEntityForRandomCoordinates(random, new Tree());
             }
+        }
+    }
+
+    public static void addCowForRandomCoordinate (Field field) {
+        int cowCount = field.getX() * field.getY() / 100;
+        for (int i = 0; i < cowCount; i++) {
+            field.addEntityForRandomCoordinates(random, new Cow());
         }
     }
 

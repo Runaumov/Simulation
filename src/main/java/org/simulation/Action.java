@@ -20,14 +20,17 @@ public class Action {
         FieldUtils.addFoxForRandomCoordinate(field);
         FieldUtils.addGrassForRandomCoordinate(field);
         FieldUtils.addStoneAndTreeForRandomCoordinate(field);
+        FieldUtils.addCowForRandomCoordinate(field);
     }
 
     public void turnAction() {
+        MessageBox messageBox = new MessageBox();
         Coordinates currentCoordinates = getCreatureCoordinatesForTurn(field);
         Creature creature = (Creature) field.getEntity(currentCoordinates);
         creature.setHp(creature.getHp() - 1);
         if (creature.getHp() == 0) {
             field.addEntity(currentCoordinates, new Skull());
+            messageBox.addMessage("Существо погибло: " + creature.toString());
         } else {
             FieldEntityRouter router = new FieldEntityRouter(field);
             Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
@@ -35,9 +38,8 @@ public class Action {
                 creature.setHp(Creature.MAX_HP);
             }
             creature.makeMove(field, currentCoordinates, targetCoordinates);
-            System.out.println("Ходит " + creature.toString());
+            messageBox.addMessage("Ходит: " + creature.toString());
         }
-
     }
 
     public static Coordinates getCreatureCoordinatesForTurn(Field field) {
@@ -49,5 +51,4 @@ public class Action {
         }
         return entitiesForTurn.poll();
     }
-
 }

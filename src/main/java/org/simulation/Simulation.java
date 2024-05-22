@@ -1,8 +1,6 @@
 package org.simulation;
 
-import org.simulation.entity.Creature;
 import org.simulation.entity.Entity;
-import org.simulation.entity.Grass;
 import org.simulation.entity.Herbivore;
 import org.simulation.field.Field;
 import org.simulation.field.FieldConsoleRender;
@@ -12,9 +10,7 @@ import java.util.Map;
 
 public class Simulation {
     private final Field field;
-
     private FieldConsoleRender fieldConsoleRender = new FieldConsoleRender();
-
     public Simulation(Field field) {
         this.field = field;
     }
@@ -30,6 +26,7 @@ public class Simulation {
                 FieldUtils.addGrassForRandomCoordinate(field);
             }
             fieldConsoleRender.render(field);
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
