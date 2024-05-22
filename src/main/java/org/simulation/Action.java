@@ -35,7 +35,7 @@ public class Action {
             FieldEntityRouter router = new FieldEntityRouter(field);
             Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
             if (!field.isCellEmpty(targetCoordinates)) {
-                creature.setHp(Creature.MAX_HP);
+                creature.setMaxHp();
             }
             creature.makeMove(field, currentCoordinates, targetCoordinates);
             messageBox.addMessage("Ходит: " + creature.toString());

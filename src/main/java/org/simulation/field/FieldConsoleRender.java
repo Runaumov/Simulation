@@ -6,9 +6,9 @@ import org.simulation.entity.Entity;
 
 public class FieldConsoleRender {
     public void render(Field field) {
-        for (int y = field.getY(); y >= 1; y--) {
+        for (int y = field.getHeight(); y >= 1; y--) {
             String line = "";
-            for (int x = 1; x <= field.getX(); x++) {
+            for (int x = 1; x <= field.getWidth(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
                 if (field.isCellEmpty(coordinates)) {
                     line += "\u2002"+"\u2022"+"\u2002";

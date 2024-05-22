@@ -9,43 +9,38 @@ import java.util.Map;
 import java.util.Random;
 
 public class Field {
-    private final int x;
-    private final int y;
-    private HashMap<Coordinates, Entity> entities;
+    private final int width;
+    private final int height;
+    private final HashMap<Coordinates, Entity> entities;
 
-    public Field(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Field(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.entities = new HashMap<>();
     }
 
-    public int getX() {
-        return x;
+    public int getWidth() {
+        return width;
     }
 
-    public int getY() {
-        return y;
+    public int getHeight() {
+        return height;
     }
 
-    public HashMap<Coordinates, Entity> getEntities() {
+    public Map<Coordinates, Entity> getEntities() {
         return entities;
     }
 
     public void addEntityForRandomCoordinates (Random random, Entity entity) {
         Coordinates coordinates;
         do {
-            coordinates = new Coordinates(random.nextInt(x) + 1, random.nextInt(y) + 1);
+            coordinates = new Coordinates(random.nextInt(width) + 1, random.nextInt(height) + 1);
         } while (!isCellEmpty(coordinates));
         entities.put(coordinates, entity);
     }
 
     public boolean hasGrass () {
-        for (Map.Entry<Coordinates, Entity> entry : entities.entrySet()) {
-            if (entry.getValue() instanceof Grass) {
-                return true;
-            }
-        }
-        return false;
+        return entities.values().stream().anyMatch(entity -> entity instanceof Grass);
     }
 
     public void addEntity(Coordinates coordinates, Entity entity) {

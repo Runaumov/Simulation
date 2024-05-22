@@ -73,8 +73,8 @@ public class FieldEntityRouter {
     }
 
     private boolean isCoordinatesValid(Coordinates coordinates) {
-        return coordinates.getX() > 0 && coordinates.getX() <= field.getX() &&
-                coordinates.getY() > 0 && coordinates.getY() <= field.getY();
+        return coordinates.getX() > 0 && coordinates.getX() <= field.getWidth() &&
+                coordinates.getY() > 0 && coordinates.getY() <= field.getHeight();
     }
 
 }

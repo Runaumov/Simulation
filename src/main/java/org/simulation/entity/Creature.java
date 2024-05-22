@@ -5,11 +5,11 @@ import org.simulation.field.Field;
 import org.simulation.Move;
 
 public abstract class Creature extends Entity {
-    public static final int MAX_HP = 10;
+    private static final int MAX_HP_DEFAULT = 10;
     protected int hp;
 
     public Creature() {
-        this.hp = 10;
+        this.hp = MAX_HP_DEFAULT;
     }
 
     public int getHp() {
@@ -18,6 +18,10 @@ public abstract class Creature extends Entity {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public void setMaxHp() {
+        this.hp = MAX_HP_DEFAULT;
     }
 
     public void makeMove (Field field, Coordinates startCoordinates, Coordinates targetCoordinates) {
