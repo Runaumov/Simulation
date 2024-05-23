@@ -9,30 +9,40 @@ import java.util.stream.Collectors;
 
 public class Action {
     private final Field field;
+    private final Random random;
+    private final MessageBox messageBox;
+    private final FieldEntityRouter router;
     private static Queue<Coordinates> entitiesForTurn = new LinkedList<>();
 
     public Action(Field field) {
         this.field = field;
+        this.random = new Random();
+        this.messageBox = new MessageBox();
+        this.router = new FieldEntityRouter(field);
     }
 
     public void initAction() {
-        FieldUtils.addRabbitForRandomCoordinate(field);
-        FieldUtils.addFoxForRandomCoordinate(field);
-        FieldUtils.addGrassForRandomCoordinate(field);
-        FieldUtils.addStoneAndTreeForRandomCoordinate(field);
-        FieldUtils.addCowForRandomCoordinate(field);
+        FieldUtils.addRabbitForRandomCoordinate(field, random);
+        FieldUtils.addFoxForRandomCoordinate(field, random);
+        FieldUtils.addGrassForRandomCoordinate(field, random);
+        FieldUtils.addStoneAndTreeForRandomCoordinate(field, random);
+        FieldUtils.addCowForRandomCoordinate(field, random);
     }
 
     public void turnAction() {
-        MessageBox messageBox = new MessageBox();
+        if (!field.hasGrass()) {
+            FieldUtils.addGrassForRandomCoordinate(field, random);
+        }
+        // допущение - метод не может вернуть null
         Coordinates currentCoordinates = getCreatureCoordinatesForTurn(field);
+
         Creature creature = (Creature) field.getEntity(currentCoordinates);
         creature.setHp(creature.getHp() - 1);
+
         if (creature.getHp() == 0) {
             field.addEntity(currentCoordinates, new Skull());
             messageBox.addMessage("Существо погибло: " + creature.toString());
         } else {
-            FieldEntityRouter router = new FieldEntityRouter(field);
             Coordinates targetCoordinates = router.getTargetCoordinates(creature, currentCoordinates);
             if (!field.isCellEmpty(targetCoordinates)) {
                 creature.setMaxHp();
@@ -42,7 +52,7 @@ public class Action {
         }
     }
 
-    public static Coordinates getCreatureCoordinatesForTurn(Field field) {
+    private static Coordinates getCreatureCoordinatesForTurn(Field field) {
         if (entitiesForTurn.isEmpty()) {
             entitiesForTurn = field.getEntities().entrySet().stream()
                     .filter(entry -> entry.getValue() instanceof Creature)

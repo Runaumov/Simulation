@@ -8,7 +8,6 @@ public class App {
         Field field = new Field(10, 10);
         Simulation simulation = new Simulation(field);
         simulation.simulationLoop();
-        int a = 1;
     }
 }
     

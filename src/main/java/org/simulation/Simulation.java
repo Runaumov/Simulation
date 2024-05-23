@@ -22,11 +22,8 @@ public class Simulation {
 
         while (!isSimulationEnd()) {
             simulationAction.turnAction();
-            if (!field.hasGrass()) {
-                FieldUtils.addGrassForRandomCoordinate(field);
-            }
             fieldConsoleRender.render(field);
-
+            MessageBox.getMessage();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

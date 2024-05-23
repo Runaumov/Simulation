@@ -11,7 +11,7 @@ import java.util.Random;
 public class Field {
     private final int width;
     private final int height;
-    private final HashMap<Coordinates, Entity> entities;
+    private final Map<Coordinates, Entity> entities;
 
     public Field(int width, int height) {
         this.width = width;
@@ -32,11 +32,11 @@ public class Field {
     }
 
     public void addEntityForRandomCoordinates (Random random, Entity entity) {
-        Coordinates coordinates;
+        Coordinates randomCoordinates;
         do {
-            coordinates = new Coordinates(random.nextInt(width) + 1, random.nextInt(height) + 1);
-        } while (!isCellEmpty(coordinates));
-        entities.put(coordinates, entity);
+            randomCoordinates = new Coordinates(random.nextInt(width) + 1, random.nextInt(height) + 1);
+        } while (!isCellEmpty(randomCoordinates));
+        entities.put(randomCoordinates, entity);
     }
 
     public boolean hasGrass () {

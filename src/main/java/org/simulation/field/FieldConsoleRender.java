@@ -11,14 +11,13 @@ public class FieldConsoleRender {
             for (int x = 1; x <= field.getWidth(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
                 if (field.isCellEmpty(coordinates)) {
-                    line += "\u2002"+"\u2022"+"\u2002";
+                    line += "\u2002" + "\u2022" + "\u2002";
                 } else {
                     line += getEntitySprite(field.getEntity(coordinates));
                 }
             }
             System.out.println(line);
         }
-        MessageBox.getMessage();
         System.out.println("----------");
     }
 
@@ -28,17 +27,18 @@ public class FieldConsoleRender {
                 return "\u2004" + "\uD83D\uDC30";
             case "Fox":
                 return "\u2004" + "\uD83E\uDD8A";
-            case "Grass" :
+            case "Grass":
                 return "\u2004" + "\uD83C\uDF3F";
-            case "Tree" :
+            case "Tree":
                 return "\u2004" + "\uD83C\uDF32" + "\u2006";
-            case "Stone" :
+            case "Stone":
                 return "\u2004" + "\uD83D\uDDFF" + "\u2005" + "\u200A";
-            case "Skull" :
+            case "Skull":
                 return "\u2004" + "\uD83D\uDC80";
-            case "Cow" :
+            case "Cow":
                 return "\u2004" + "\uD83D\uDC2E";
         }
         return "";
     }
+
 }
