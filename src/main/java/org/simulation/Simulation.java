@@ -22,6 +22,7 @@ public class Simulation {
         Action simulationAction = new Action(field);
         simulationAction.initAction();
         fieldConsoleRender.render(field);
+        fieldConsoleRender.renderDelimiter('-', field.getX());
 
         while (!isSimulationEnd()) {
             simulationAction.turnAction();

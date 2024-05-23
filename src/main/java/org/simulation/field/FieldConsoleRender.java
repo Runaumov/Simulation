@@ -5,6 +5,7 @@ import org.simulation.entity.Entity;
 
 public class FieldConsoleRender {
     public void render(Field field) {
+        clearConsole();
         for (int y = field.getY(); y >= 1; y--) {
             String line = "";
             for (int x = 1; x <= field.getX(); x++) {
@@ -45,6 +46,11 @@ public class FieldConsoleRender {
                 return "\uD83D\uDC2E" + " ";
         }
         return "";
+    }
+
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }
