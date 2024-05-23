@@ -27,6 +27,7 @@ public class Simulation {
             simulationAction.turnAction();
             fieldConsoleRender.render(field);
             messageBox.getMessage();
+            fieldConsoleRender.renderDelimiter('-', field.getX());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

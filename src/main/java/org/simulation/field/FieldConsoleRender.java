@@ -17,7 +17,14 @@ public class FieldConsoleRender {
             }
             System.out.println(line);
         }
-        System.out.println("----------");
+    }
+
+    public void renderDelimiter(char c, int length) {
+        StringBuilder delimiter = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            delimiter.append(c);
+        }
+        System.out.println(delimiter.toString());
     }
 
     private String getEntitySprite(Entity entity) {

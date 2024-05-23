@@ -2,7 +2,6 @@ package org.simulation.entity;
 
 import org.simulation.Coordinates;
 import org.simulation.field.Field;
-import org.simulation.Move;
 
 public abstract class Creature extends Entity {
     private static final int MAX_HP_DEFAULT = 10;
