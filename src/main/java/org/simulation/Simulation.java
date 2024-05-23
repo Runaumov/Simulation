@@ -4,15 +4,18 @@ import org.simulation.entity.Entity;
 import org.simulation.entity.Herbivore;
 import org.simulation.field.Field;
 import org.simulation.field.FieldConsoleRender;
-import org.simulation.field.FieldUtils;
 
 import java.util.Map;
 
 public class Simulation {
     private final Field field;
-    private FieldConsoleRender fieldConsoleRender = new FieldConsoleRender();
+    private final FieldConsoleRender fieldConsoleRender;
+    private final MessageBox messageBox;
+
     public Simulation(Field field) {
         this.field = field;
+        this.fieldConsoleRender = new FieldConsoleRender();
+        this.messageBox = new MessageBox();
     }
 
     public void simulationLoop() {
@@ -23,7 +26,7 @@ public class Simulation {
         while (!isSimulationEnd()) {
             simulationAction.turnAction();
             fieldConsoleRender.render(field);
-            MessageBox.getMessage();
+            messageBox.getMessage();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

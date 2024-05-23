@@ -1,46 +1,34 @@
 package org.simulation;
 
-import org.simulation.entity.Entity;
-import org.simulation.field.Field;
-
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class Coordinates {
-    public final Integer X;
-    public final Integer Y;
+    private final int x;
+    private final int y;
 
-    public Coordinates(Integer x, Integer y) {
-        X = x;
-        Y = y;
+    public Coordinates(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public Integer getX() {
-        return X;
+    public int getX() {
+        return x;
     }
 
-    public Integer getY() {
-        return Y;
+    public int getY() {
+        return y;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coordinates that = (Coordinates) o;
-        return Objects.equals(X, that.X) && Objects.equals(Y, that.Y);
+        return Objects.equals(x, that.x) && Objects.equals(y, that.y);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(X, Y);
+        return Objects.hash(x, y);
     }
 
-    @Override
-    public String toString() {
-        return "Coordinates{" +
-                "X=" + X +
-                ", Y=" + Y +
-                '}';
-    }
 }

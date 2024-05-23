@@ -9,22 +9,22 @@ import java.util.Map;
 import java.util.Random;
 
 public class Field {
-    private final int width;
-    private final int height;
+    private final int x;
+    private final int y;
     private final Map<Coordinates, Entity> entities;
 
     public Field(int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.x = width;
+        this.y = height;
         this.entities = new HashMap<>();
     }
 
-    public int getWidth() {
-        return width;
+    public int getX() {
+        return x;
     }
 
-    public int getHeight() {
-        return height;
+    public int getY() {
+        return y;
     }
 
     public Map<Coordinates, Entity> getEntities() {
@@ -34,7 +34,7 @@ public class Field {
     public void addEntityForRandomCoordinates (Random random, Entity entity) {
         Coordinates randomCoordinates;
         do {
-            randomCoordinates = new Coordinates(random.nextInt(width) + 1, random.nextInt(height) + 1);
+            randomCoordinates = new Coordinates(random.nextInt(x) + 1, random.nextInt(y) + 1);
         } while (!isCellEmpty(randomCoordinates));
         entities.put(randomCoordinates, entity);
     }
