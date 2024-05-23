@@ -23,7 +23,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>org.simulation.App</mainClass>
+              <mainClass>org.simulation.Main</mainClass>
             </manifest>
           </archive>
         </configuration>

@@ -22,13 +22,13 @@ public class FieldEntityRouter {
         while (!queue.isEmpty()){
             Coordinates currentCoordinates = queue.poll();
 
-            if (isTarget(creature, currentCoordinates)) {
+            if (isTargetCoordinates(creature, currentCoordinates)) {
                 return reconstructPath(previous, startCoordinates, currentCoordinates);
             }
 
             for (Coordinates neighbor : getNeighborCoordinates(currentCoordinates)) {
                 if (isCoordinatesValid(neighbor) && !visited.contains(neighbor) &&
-                    field.getEntity(neighbor) == null || isTarget(creature, neighbor)
+                    field.getEntity(neighbor) == null || isTargetCoordinates(creature, neighbor)
                 ){
                     queue.add(neighbor);
                     visited.add(neighbor);
@@ -39,8 +39,8 @@ public class FieldEntityRouter {
         return startCoordinates;
     }
 
-    private boolean isTarget(Creature creature, Coordinates coordinates) {
-        Entity entity = field.getEntity(coordinates);
+    private boolean isTargetCoordinates(Creature creature, Coordinates targetCoordinates) {
+        Entity entity = field.getEntity(targetCoordinates);
         if (creature instanceof Herbivore && entity instanceof Grass) {
             return true;
         } else if (creature instanceof Predator && entity instanceof Herbivore && entity instanceof iFood) {
@@ -60,10 +60,10 @@ public class FieldEntityRouter {
 
     private Coordinates reconstructPath(Map<Coordinates, Coordinates> previous, Coordinates startCoordinates, Coordinates targetCoordinates) {
         LinkedList<Coordinates> path = new LinkedList<>();
-        Coordinates step = targetCoordinates;
-        while (step != null && !step.equals(startCoordinates)) {
-            path.addFirst(step);
-            step = previous.get(step);
+        Coordinates stepCoordinates = targetCoordinates;
+        while (stepCoordinates != null && !stepCoordinates.equals(startCoordinates)) {
+            path.addFirst(stepCoordinates);
+            stepCoordinates = previous.get(stepCoordinates);
         }
         if (path.isEmpty()) {
             return startCoordinates;
